@@ -19,6 +19,7 @@ function App() {
             <DetailedQuestion />
           </Route>
          
+         
         </Switch>
       </div>
     </Router>
