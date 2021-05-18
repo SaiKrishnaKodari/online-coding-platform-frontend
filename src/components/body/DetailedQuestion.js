@@ -1,7 +1,11 @@
 import React, { useEffect,useState } from 'react'
 import { domain } from "../../Shared";
 import "./DetailedQuestion.css"
+import { DifficultyLevel } from "./DifficultyLevelBox";
+import { orange, red } from '@material-ui/core/colors';
 import  Editor  from "./editor/Editor";
+import DisplayResult from "../displayResult/DisplayResult";
+
 export function DetailedQuestion(){
 
 
@@ -9,6 +13,13 @@ export function DetailedQuestion(){
     const [testcases, settestcases] = useState([])
     const [output, setoutput] = useState("")
     const [combined_result, setcombined_result] = useState([])
+    const [toShow, settoShow] = useState("input")
+    document.title="doCode | solve problem" 
+    
+    const handleShownInputOutputButtonClick = (name)=>{
+        settoShow(name)
+     }
+
     
     const  fetchQuestionAndItsTestCases=() => 
         {
@@ -46,7 +57,17 @@ export function DetailedQuestion(){
             <div className ="DetailedQuestion">
                 <div className="row">
                     <div className ="question_description col-12 col-lg-5">
-                        question description here
+                    <div className="question_title  row">
+                            <div className="row col-8" style={{marginLeft:"5px"}}>
+                                {question.fields && question.fields.title}
+                            </div>
+                            <div className="row col-2"> </div>
+
+                            <div className="row col">
+                                { question.fields && showDifficultyLevel(question.fields.difficulty)}
+                            </div>
+                            </div>
+                        
                         {question.fields && <p>{question.fields.statement}</p>}
                         {question.fields && <p> Difficulty : {question.fields.difficulty}</p>}
                         {question.fields && <p> Constraints : {question.fields.constraints}</p>}
@@ -55,16 +76,16 @@ export function DetailedQuestion(){
                         
                             
                             
-                           {[1,2,3,4,5,6,7,8,9,10].map(x=>{ return<> Hello <br/></>})}
-                           {[1,2,3,4,5,6,7,8,9,10].map(x=>{ return<> Hello <br/></>})}
-                           {[1,2,3,4,5,6,7,8,9,10].map(x=>{ return<> Hello <br/></>})}
                         {/* test cases */}
+                        {testcases.length==0 && <p style={{color:"red"}}> No testcases for this question click <a href="#"> here </a> to contribute</p>}
                         {testcases.map((tc,ind)=>
                         <div>
+                            <code>
                             <h4>Sample testcase {ind+1}</h4>
                             <p>Input: {tc.fields.input}</p>
                             <p>Output : {tc.fields.output}</p>
                             <hr/>
+                            </code>
                         </div>)}
                     </div>
                     <div className ="code_editor col-12 col-lg-7">
@@ -77,94 +98,42 @@ export function DetailedQuestion(){
                 </div>
                 
                 
-                <div className="row">
-                    <div className ="input_box col-12 col-lg-5"> 
-                        input will be taken from here
-                        n=input()
-                        print(n[::-1])
-                    </div>
-                    <div  id="output_box" className ="output_box  col-12 col-lg-7">
-                        {/* {output_div.innerHTML=""} */}
-                        <table>
-                            <thead>
-                                <th> sample Input </th>
-                                <th> Expected output  </th>
-                                <th> Actual output  </th>
-                                <th> Result  </th>
-                            </thead>
-                            <tbody>
-                    
-                            {combined_result.map(res=>DisplayResult(res))}
-                            {/* {combined_result.map(res=>"Hello")} */}
+                <div className="row input_output_boxes_actions">
 
-                            </tbody>
+<div className="btn-group" role="group" aria-label="Basic example">
+    <button type="button" onClick={()=>settoShow("input")}   className={toShow=="input"?" btn btn-primary btn-sm ":"btn btn-outline-primary btn-sm"}>Show Input</button>&nbsp;
+    <button type="button" onClick={()=>settoShow("output")}  className={toShow=="output"?" btn btn-primary btn-sm ":"btn btn-outline-primary btn-sm"}>Show Output</button>
+</div>
 
-                        </table>
+</div>
+<div className="row">
+<div className ={toShow!="input"?"d-none":""+ "input_box col-12 col-lg-5"}> 
+    type input here
+</div>
+<div  id="output_box" className ={ toShow!="output"?"d-none":""+ "output_box  col-12 col-lg-7"}>
+    {/* {output_div.innerHTML=""} */}
+    
+    {combined_result.length<=0?"Output will be shown here":""}
+    <table  border="1px">
+        <thead className={combined_result.length<=0? "d-none":""}>
+            <th> sample Input </th>
+            <th> Expected output  </th>
+            <th> Actual output  </th>
+            <th> Result  </th>
+        </thead>
+        <tbody>
+        {combined_result.map(res=>DisplayResult(res))}
+        </tbody>
+    </table>
+</div>
+</div>
 
-
-                        
-                    </div>
-                </div>
-
-            </div>
-            
-            
-        </div>
-    )
+</div>
+</div>
+)
 }
-function verdict(a,b){
-    if (a.trim()==b.trim()){
-        return "PASSED"
-    }
-    return "FAILED"
-}
-function DisplayResult(res){
-    console.log("In display result ",res)
-
-    if(res.actual_output.message =="ArgumentMissingError: source is needed!"){
-        return  <>
-        <tr>
-            <td> {res.input}</td>
-            <td> {res.expected_output}</td>
-            <td> PLEASE TYPE CODE </td>
-        </tr>
-        </>
-
-    }
-    
-    if(res.actual_output.run_status.status=="RE"){
-        return  <>
-        <tr>
-        <td> {res.input}</td>
-            <td> {res.expected_output}</td>
-            <td> Got Runtime ERROR</td>
-        </tr>
-        </>
-        
-    }
-
-    if(res.actual_output.run_status.status=="CE"){
-        return  <>
-        <tr>
-            <td> {res.input}</td>
-            <td> {res.expected_output}</td>
-            <td> Got compile time ERROR</td>
-        </tr>
-        </>
-        
-    }
-
-
-    
-    return <>
-    <tr>
-        <td> {res.input}</td>
-        <td> {res.expected_output}</td>
-        <td> {res.actual_output.run_status.output}</td>
-        <td> {verdict(res.expected_output,res.actual_output.run_status.output)}</td>
-    </tr>
-    </> 
-    
-
-
+const showDifficultyLevel=(level)=>{
+return <p  className={level+"D"}>
+{level}
+</p>
 }

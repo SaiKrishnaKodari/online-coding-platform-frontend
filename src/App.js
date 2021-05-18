@@ -1,5 +1,6 @@
 import './App.css';
 import Body from "./components/body/Body"
+import ContributeProblem from "./components/Contributions/ContributeProblem";
 import {
   BrowserRouter as Router,
   Switch,
@@ -17,6 +18,9 @@ function App() {
           </Route>
           <Route exact path="/problem/:id">
             <DetailedQuestion />
+          </Route>
+          <Route exact path="/contribute-question">
+            <ContributeProblem />
           </Route>
          
          
