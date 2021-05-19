@@ -21,11 +21,9 @@ import "ace-builds/src-noconflict/theme-github";
 import "ace-builds/src-noconflict/theme-monokai";
 
 import * as ace from 'ace-builds'; // ace module ..
-
-
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-
 import { domain } from "../../../Shared";
+
 
 
 const override = `
@@ -120,7 +118,7 @@ function Editor({question,setoutput,testcases,output_div,setcombined_result}) {
             <Spinner />
 
                 {/* language drodown */}
-                Language
+                Language : &nbsp;&nbsp;
                 <Select
                 native
                 value={language}
@@ -141,9 +139,8 @@ function Editor({question,setoutput,testcases,output_div,setcombined_result}) {
                 </Select>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 {/* theme drodown */}
-                <span>Theme</span>
+                <span>Theme : </span>&nbsp;&nbsp;
                 <Select
-                className='selections'
                 native
                 value={theme}
                 onChange={(event)=>{  setTheme(event.target.value)}}
@@ -177,7 +174,7 @@ function Editor({question,setoutput,testcases,output_div,setcombined_result}) {
                                 
                             />
                             {loading?<><ClipLoader color={"red"} loading={true} css={override} size={40} /><p>Loading...</p></>:
-                            <Button variant="contained" color="primary" href="#contained-buttons"
+                            <Button classname='run_button'variant="contained" color="primary" href="#contained-buttons"
                             onClick={
                                 ()=>{
                                     
