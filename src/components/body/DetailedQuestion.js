@@ -59,11 +59,13 @@ export function DetailedQuestion(){
                     <div className ="question_description col-12 col-lg-5">
                     <div className="question_title  row">
                             <div className="row col-8" style={{marginLeft:"5px"}}>
-                                {question.fields && question.fields.title}
+                                <h2>{question.fields && question.fields.title}</h2>
+                                
                             </div>
                             <div className="row col-2"> </div>
 
                             <div className="row col">
+                                
                                 { question.fields && showDifficultyLevel(question.fields.difficulty)}
                             </div>
                             </div>
