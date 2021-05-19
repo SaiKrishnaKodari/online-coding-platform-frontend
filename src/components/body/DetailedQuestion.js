@@ -6,6 +6,9 @@ import { orange, red } from '@material-ui/core/colors';
 import  Editor  from "./editor/Editor";
 import DisplayResult from "../displayResult/DisplayResult";
 
+function handleClick(e){
+
+}
 export function DetailedQuestion(){
 
 
@@ -55,20 +58,30 @@ export function DetailedQuestion(){
         
         <div>
             <div className ="DetailedQuestion">
-                <div className="row">
+                <div className="row row-cols-2">
                     <div className ="question_description col-12 col-lg-5">
                     <div className="question_title  row">
-                            <div className="row col-8" style={{marginLeft:"5px"}}>
-                                <h2>{question.fields && question.fields.title}</h2>
-                                
+                            <div className="row col-10" style={{marginLeft:"5px"}}>
+                                <h4>{question.fields && question.fields.title}</h4>
                             </div>
                             <div className="row col-2"> </div>
 
                             <div className="row col">
-                                
-                                { question.fields && showDifficultyLevel(question.fields.difficulty)}
+                                <div className='row col-3'>
+                                { question.fields && showDifficultyLevel(question.fields.difficulty)}</div>
+                            
                             </div>
                             </div>
+                            <div className='row row-cols-2'>
+                            <div className="row col-10"></div>
+                            <div className='row col-2'></div>
+                            <div className="row col">
+                                <div className='row col-3'>
+                                <a href={url} onClick={e=>handleClick(e)}>Author</a></div>
+                            
+                            </div>
+                            </div>
+                            <hr></hr>
                         
                         {question.fields && <p>{question.fields.statement}</p>}
                         {question.fields && <p> Difficulty : {question.fields.difficulty}</p>}
@@ -76,7 +89,7 @@ export function DetailedQuestion(){
                         {question.fields && <p> Points : {question.fields.points}</p>}
                         <p>loremaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaloremaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaloremaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
                         
-                            
+                            <hr></hr>
                             
                         {/* test cases */}
                         {testcases.length==0 && <p style={{color:"red"}}> No testcases for this question click <a href="#"> here </a> to contribute</p>}

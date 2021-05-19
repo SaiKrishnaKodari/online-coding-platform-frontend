@@ -3,7 +3,7 @@ import React, { Component,useState,useEffect } from 'react';
 import Select from '@material-ui/core/Select';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import Button from '@material-ui/core/Button'
-
+import "./Editor.css"
 import Spinner from 'react-bootstrap/Spinner'
 import ClipLoader from "react-spinners/ClipLoader";
 
@@ -120,6 +120,7 @@ function Editor({question,setoutput,testcases,output_div,setcombined_result}) {
             <Spinner />
 
                 {/* language drodown */}
+                Language
                 <Select
                 native
                 value={language}
@@ -130,15 +131,19 @@ function Editor({question,setoutput,testcases,output_div,setcombined_result}) {
                     id: 'outlined-age-native-simple',
                 }}
                 >
+                    
                         <option value="python">python3</option>
                         <option value="java">java</option>
                         <option value="javascript">javascript</option>
                         <option value="CPP">CPP</option>
                         
+                        
                 </Select>
-                &nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 {/* theme drodown */}
+                <span>Theme</span>
                 <Select
+                className='selections'
                 native
                 value={theme}
                 onChange={(event)=>{  setTheme(event.target.value)}}
