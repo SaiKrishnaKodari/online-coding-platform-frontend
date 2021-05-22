@@ -2,6 +2,7 @@ import React, { useState,useEffect } from 'react'
 import {domain} from "../../Shared"
 import {QuestionInHomePage  } from "./QuestionInHomePage";
 import "./Body.css"
+import BodySkeleton from "../loadingSkeletons/BodySkeleton"
 const url =domain+'api/questions'
 
 
@@ -16,13 +17,13 @@ export  default function Body()
         {
             return setQuestions(data)
         })
-        .catch(err => alert("Error while fetching data from backend server"))
+        // .catch(err => alert("Error while fetching data from backend server"))
     },[])
    
 
     return (
         <div><h3>Questions will be displayed here</h3>
-            {questions.length ===0?"Fetching questions please wait":""}
+            {questions.length ===0?<BodySkeleton/>:""}
             {console.log(questions)}
             <ul className="list-group list-group-flush question_title">
                 {questions.map((qn)=> QuestionInHomePage(qn))}

@@ -120,6 +120,8 @@ function Editor({question,setoutput,testcases,output_div,setcombined_result}) {
                 {/* language drodown */}
                 Language : &nbsp;&nbsp;
                 <Select
+                labelId="demo-simple-select-outlined-label"
+                id="demo-simple-select-outlined"
                 native
                 value={language}
                 onChange={handleLanguageChange}
@@ -141,6 +143,8 @@ function Editor({question,setoutput,testcases,output_div,setcombined_result}) {
                 {/* theme drodown */}
                 <span>Theme : </span>&nbsp;&nbsp;
                 <Select
+                labelId="demo-simple-select-outlined-label"
+                id="demo-simple-select-outlined"
                 native
                 value={theme}
                 onChange={(event)=>{  setTheme(event.target.value)}}

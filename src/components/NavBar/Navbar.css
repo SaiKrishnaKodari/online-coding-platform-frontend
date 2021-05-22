@@ -1,11 +1,429 @@
-.NavBar{
-    background-color: black;
-    color: white;
-    height: 50px;
+@import url(https://fonts.googleapis.com/css?family=Nunito:400,600,700&display=swap);
+body {
+    background-color: #fff;
+    color: #393939;
+    margin-bottom: 20px;
+    padding-top: 95px;
+    font-family: Nunito, sans-serif;
+    user-select: none
 }
-.BrandName{
-    padding-top: 4px;
-    margin-left: 5px;
-    color: white;
-    
+
+* {
+    box-sizing: border-box
 }
+
+[data-analytics] > * {
+    pointer-events: none
+}
+
+.rupee-symbol {
+    font-family: sans-serif;
+    font-weight: 400
+}
+
+img[alt] {
+    text-indent: -10000px
+}
+
+.cookies-container {
+    position: fixed;
+    display: none;
+    flex-direction: column;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 48px;
+    background-color: #fff;
+    border-bottom: 1px solid #e7e7e7;
+    padding: 0 12px;
+    z-index: 100;
+    transform: translateY(-48px)
+}
+
+.cookies-contain.active {
+    display: flex;
+    animation: mount-in .35s ease-in-out forwards
+}
+
+@keyframes mount-in {
+    0% {
+        transform: translateY(-48px)
+    }
+
+    to {
+        transform: translateY(0)
+    }
+}
+
+.cookies-container .cookies-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    max-width: 1080px;
+    margin: 0 auto
+}
+
+.cookies-container .cookies-content p {
+    font-size: 14px;
+    color: #393939;
+    overflow: hidden
+}
+
+.cookies-container .cookies-content p a {
+    color: #e40000
+}
+
+.cookies-container .cookies-content button {
+    font-size: 12px;
+    margin-left: 16px;
+    padding: 5px 10px;
+    background-color: #fff;
+    color: #e40000;
+    border: 1px solid #e40000;
+    border-radius: 4px;
+    white-space: nowrap;
+    cursor: pointer
+}
+
+.cookies-container.active ~ .header-container {
+    transform: translateY(48px)
+}
+
+.header-container {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 94px;
+    background-color: #fff;
+    border-bottom: 1px solid #e7e7e7;
+    padding: 0 12px;
+    z-index: 99;
+    transform: translateY(0);
+    transition: transform .35s ease-in-out
+}
+
+.header-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding-top: 24px
+}
+
+.header-content:after {
+    content: "";
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 24px;
+    background-color: #f5f5f5
+}
+
+.header-content .header-brand {
+    display: flex;
+    align-items: center;
+    height: 100%
+}
+
+.header-content .header-brand .hamburger-btn {
+    position: relative;
+    display: none;
+    background: url(https://assets.airtel.in/static-assets/new-home/img/nav-menu.svg) no-repeat 50%;
+    background-size: 24px 24px;
+    height: 56px;
+    min-width: 46px;
+    border: none;
+    padding: 0;
+    margin-left: -12px;
+    outline: none;
+    z-index: 2
+}
+
+.header-content .header-brand.active .hamburger-btn {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: 2
+}
+
+.header-content .header-brand a {
+    height: 100%
+}
+
+.header-content .header-brand a .brand {
+    min-width: 92px;
+    max-width: 92px;
+    width: 100%;
+    height: 100%;
+    margin: auto 0
+}
+
+.header-content .business-quick-actions {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: inline-flex;
+    align-items: center;
+    height: 24px;
+    z-index: 1
+}
+
+.header-content .business-quick-actions .divider {
+    height: 14px;
+    width: 1px;
+    background-color: #979797;
+    margin-left: 16px
+}
+
+.header-content .business-quick-actions .other-services {
+    display: inherit
+}
+
+.header-content .business-quick-actions a {
+    font-size: 10px;
+    color: #393939;
+    margin-left: 16px
+}
+
+.header-content .business-quick-actions a.active, .header-content .business-quick-actions a:hover {
+    font-weight: 700;
+    color: #000
+}
+
+.header-content .header-main {
+    flex: 1;
+    display: flex;
+    padding-left: 18px
+}
+
+.header-content .header-main .header-main-actions-container {
+    display: inline-flex;
+    flex: 1
+}
+
+.header-main-actions-container .header-main-actions-list-content {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    width: 100%
+}
+
+.header-main-actions-container .actions-list-container {
+    position: relative;
+    display: inline-flex;
+    color: #393939
+}
+
+.header-main-actions-container .get-app-container {
+    margin-left: auto
+}
+
+.header-main-actions-container .get-app-container .actions-heading {
+    margin-right: 0
+}
+
+.actions-list-container .actions-heading, .header-main-actions-container .get-app-container .actions-heading,
+.header-right .actions-heading {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    cursor: pointer;
+    letter-spacing: .2px;
+    font-weight: 800;
+    white-space: nowrap;
+    padding: 24px 12px;
+    margin-right: 12px
+}
+
+
+.header-main-actions-container .get-app-container .actions-heading,
+.header-right .actions-heading {
+    padding: 6px 12px 0;
+    font-size: 12px;
+    margin: 0;
+    height: 100%
+}
+
+.actions-heading img, .header-main-actions-container .get-app-container .actions-heading img {
+    height: 24px;
+    width: 24px
+}
+
+.actions-list-container .actions-list {
+    display: none;
+    position: absolute;
+    transition: all .7s ease 0s;
+    top: 68px;
+    left: -36px;
+    max-width: 350px;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .1);
+    background-color: #fff
+}
+
+.actions-list-container .actions-list li {
+    display: flex
+}
+
+.actions-list-container .actions-list li:hover {
+    background-color: #f2f2f2;
+    color: #e40000
+}
+
+.actions-list-container .actions-list li a {
+    padding: 12px 36px;
+    font-size: 14px;
+    width: 100%;
+    white-space: nowrap
+}
+
+.header-content .header-right {
+    display: flex;
+    height: 100%;
+    margin-left: auto
+}
+
+.header-content .header-right .actions-heading {
+    margin-right: 0
+}
+
+.cookies-container.active ~ main {
+    margin-top: 142px
+}
+
+main {
+    position: relative;
+    overflow: hidden;
+    margin-top: 94px
+}
+
+img {
+    max-width: 100%;
+    max-height: 100%
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    margin: 0
+}
+
+a {
+    outline: none;
+    color: inherit
+}
+
+li, ul {
+    list-style: none
+}
+
+li, section, ul {
+    margin: 0;
+    padding: 0
+}
+
+article, section {
+    width: 100%;
+    position: relative
+}
+
+article {
+    display: flex;
+    max-width: 1080px;
+    margin: 0 auto
+}
+
+article.column {
+    flex-direction: column
+}
+
+a {
+    text-decoration: none
+}
+
+.main-container .upper-section {
+    display: flex;
+    flex-direction: column
+}
+
+.ie-container {
+    display: none;
+    position: relative;
+    flex-direction: column;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background-color: #e40000;
+    border-bottom: 1px solid #e7e7e7;
+    padding: 12px
+}
+
+.ie-container .ie-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    max-width: 1080px;
+    margin: 0 auto
+}
+
+.ie-container .ie-content p {
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    overflow: hidden
+}
+
+.ie-container .ie-content button {
+    font-size: 12px;
+    margin-left: 16px;
+    padding: 5px 10px;
+    background-color: #fff;
+    color: #e40000;
+    border: none;
+    border-radius: 4px;
+    white-space: nowrap;
+    cursor: pointer
+}
+
+.actions-list-container .actions-heading::after {
+    content: "";
+    position: absolute;
+    right: -4px;
+    top: 28px;
+    height: 10px;
+    width: 10px;
+    background: url(https://assets.airtel.in/static-assets/new-home/img/arrow.svg) no-repeat 50%;
+    background-size: contain;
+    transform: rotate(90deg);
+    filter: brightness(0) contrast(100%);
+    transition: transform .2s ease-in
+}
+.actions-list-container:hover {border-bottom: 2px solid red;color: red;}
+.actions-heading:hover {
+    /* background: url(https://assets.airtel.in/static-assets/new-home/img/arrow.svg) no-repeat 50%;  */
+    background-size: contain;
+    transform: rotate(358deg);
+    filter: brightness(0) contrast(100%);
+    transition: transform .1s ease-in
+}
+.actions-list{color: black;}
+
+.actions-list a:hover {background-color: #ddd;text-decoration: none;color: red;}
+
+.actions-list-container:hover .actions-list {display: block;}
+
+.actions-list-container:hover .dropbtn {background-color: #3e8e41;}

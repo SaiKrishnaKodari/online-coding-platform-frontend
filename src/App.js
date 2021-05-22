@@ -6,12 +6,14 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
+import NavBar from "./components/NavBar/Navbar";
 
 import { DetailedQuestion } from "./components/body/DetailedQuestion";
 function App() {
   return (
     <Router>
       <div className="App">
+      <NavBar/>
         <Switch>
           <Route exact path="/">
             <Body />
