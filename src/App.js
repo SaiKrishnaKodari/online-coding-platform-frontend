@@ -17,13 +17,13 @@ function App() {
         <Switch>
           <Route exact path="/">
             <Body />
+        
+            <ContributeProblem />
           </Route>
           <Route exact path="/problem/:id">
             <DetailedQuestion />
           </Route>
-          <Route exact path="/contribute-question">
-            <ContributeProblem />
-          </Route>
+          
          
          
         </Switch>

@@ -1,9 +1,9 @@
 import React from 'react'
-
+import ReactMarkdown from 'react-markdown'
 export default function ContributeProblem() {
     return (
         <div>
-            <h2>Questions can be contributed from here</h2> 
+            <h5><a hrf='#'>Questions can be contributed from here</a></h5> 
         </div>
     )
 }

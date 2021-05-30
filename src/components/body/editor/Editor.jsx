@@ -3,7 +3,7 @@ import React, { Component,useState,useEffect } from 'react';
 import Select from '@material-ui/core/Select';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import Button from '@material-ui/core/Button'
-import "./Editor.css"
+
 import Spinner from 'react-bootstrap/Spinner'
 import ClipLoader from "react-spinners/ClipLoader";
 
@@ -21,19 +21,24 @@ import "ace-builds/src-noconflict/theme-github";
 import "ace-builds/src-noconflict/theme-monokai";
 
 import * as ace from 'ace-builds'; // ace module ..
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import { domain } from "../../../Shared";
 
+
+import TextareaAutosize from '@material-ui/core/TextareaAutosize';
+
+import { domain } from "../../../Shared";
 
 
 const override = `
   display: block;
   border-color: red;
 `;
-function Editor({question,setoutput,testcases,output_div,setcombined_result}) {
+function Editor({question,setoutput,testcases,output_div,setcombined_result,settoShow,setpr_output}) {
+    var code_from_ls = localStorage.getItem("code")
      const [language, setLanguage] = useState("python")
      const [theme, setTheme] = useState("monokai")
-     const [codeTextInput, setcodeTextInput] = useState(``)
+     const [codeTextInput, setcodeTextInput] = useState(code_from_ls)
+    //  console.log("Init code is ",codeTextInput)
+
      const [loading, setloading] = useState(false)
     //  const [userInput, setuserInput] = useState("")
     //  const [output, setoutput] = useState("")
@@ -60,11 +65,12 @@ function Editor({question,setoutput,testcases,output_div,setcombined_result}) {
 
       const handleLanguageChange = (event) => {
         const name = event.target.value;
-        console.log('lang change',name)
+        // console.log('lang change',name)
         setLanguage(name)
       };
       
       const handleCodeTypeChange=(code)=>{
+          localStorage.setItem("code",code)
           setcodeTextInput(code)
       }
       
@@ -92,13 +98,15 @@ function Editor({question,setoutput,testcases,output_div,setcombined_result}) {
 
     }
      async  function handleCompile() {
-          console.log(testcases)
+         setloading(true)
+        //   console.log(testcases)
+        setpr_output([])
           
           var final_output=[];
           for(var i=0;i<testcases.length;i++)
           {
                 var result = await run_testcase(testcases[i].fields.input)
-                 console.log("Gotten op is ",result)
+                //  console.log("Gotten op is ",result)
                 final_output.push(
                     {
                         input:testcases[i].fields.input,
@@ -107,8 +115,43 @@ function Editor({question,setoutput,testcases,output_div,setcombined_result}) {
                     }
                 )
           }
-          console.log("Final o/p is ",final_output)
+        //   console.log("Final o/p is ",final_output)
           setcombined_result(final_output)
+         setloading(false)
+         settoShow("output")
+
+
+      }
+
+      async function handleSubmit(){
+        setcombined_result([])
+          const code =codeTextInput;
+          const lang =languageFormat(language)
+          const question_pk =question.pk
+          const url = domain+'api/submit'
+          console.log(code,lang,question_pk,url)
+
+          const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                post_data:{
+                    code:codeTextInput,
+                    question_pk:question_pk,
+                    language:languageFormat(language)
+                }
+            })
+        };
+
+        var response = await fetch(url,requestOptions)
+        var result = response.json()
+        result.then((data)=>{
+            setpr_output(data)
+            settoShow("output")
+        }).catch((err)=>{
+            console.error(err)
+            settoShow("output")
+        })
 
       }
         return (
@@ -118,10 +161,7 @@ function Editor({question,setoutput,testcases,output_div,setcombined_result}) {
             <Spinner />
 
                 {/* language drodown */}
-                Language : &nbsp;&nbsp;
                 <Select
-                labelId="demo-simple-select-outlined-label"
-                id="demo-simple-select-outlined"
                 native
                 value={language}
                 onChange={handleLanguageChange}
@@ -131,20 +171,15 @@ function Editor({question,setoutput,testcases,output_div,setcombined_result}) {
                     id: 'outlined-age-native-simple',
                 }}
                 >
-                    
                         <option value="python">python3</option>
                         <option value="java">java</option>
                         <option value="javascript">javascript</option>
                         <option value="CPP">CPP</option>
                         
-                        
                 </Select>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;
                 {/* theme drodown */}
-                <span>Theme : </span>&nbsp;&nbsp;
                 <Select
-                labelId="demo-simple-select-outlined-label"
-                id="demo-simple-select-outlined"
                 native
                 value={theme}
                 onChange={(event)=>{  setTheme(event.target.value)}}
@@ -171,14 +206,14 @@ function Editor({question,setoutput,testcases,output_div,setcombined_result}) {
                                 theme={theme}
                                 onChange={handleCodeTypeChange}
                                 name="UNIQUE_ID_OF_DIV"
-                                
+                                value={codeTextInput}
                                 height="500px"
                                 width="95%"
                                 fontSize={15}
                                 
                             />
                             {loading?<><ClipLoader color={"red"} loading={true} css={override} size={40} /><p>Loading...</p></>:
-                            <Button classname='run_button'variant="contained" color="primary" href="#contained-buttons"
+                            <Button variant="contained" color="primary" href="#contained-buttons"
                             onClick={
                                 ()=>{
                                     
@@ -186,6 +221,15 @@ function Editor({question,setoutput,testcases,output_div,setcombined_result}) {
                                 }}>
                                 Run
                             </Button>}
+                            &nbsp;
+                            <Button variant="contained" color="primary" href="#contained-buttons"
+                            onClick={
+                                ()=>{
+                                    
+                                    handleSubmit()
+                                }}>
+                                Submit
+                            </Button>
                     </div>
                 </div>
 

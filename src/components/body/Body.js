@@ -22,7 +22,8 @@ export  default function Body()
    
 
     return (
-        <div><h3>Questions will be displayed here</h3>
+        <div><h3>Solve Challenges</h3>
+        <br></br>
             {questions.length ===0?<BodySkeleton/>:""}
             {console.log(questions)}
             <ul className="list-group list-group-flush question_title">

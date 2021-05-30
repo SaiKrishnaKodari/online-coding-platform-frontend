@@ -17,6 +17,7 @@ export function DetailedQuestion(){
     const [output, setoutput] = useState("")
     const [combined_result, setcombined_result] = useState([])
     const [toShow, settoShow] = useState("input")
+    const [pr_output , setpr_output]=useState([])
     document.title="doCode | solve problem" 
     
     const handleShownInputOutputButtonClick = (name)=>{
@@ -64,7 +65,7 @@ export function DetailedQuestion(){
                             <div className="row col-10" style={{marginLeft:"5px"}}>
                                 <h4>{question.fields && question.fields.title}</h4>
                             </div>
-                            <div className="row col-2"> </div>
+                            {/* <div className="row col-2"> </div> */}
 
                             <div className="row col">
                                 <div className='row col-3'>
@@ -87,12 +88,12 @@ export function DetailedQuestion(){
                         {question.fields && <p> Difficulty : {question.fields.difficulty}</p>}
                         {question.fields && <p> Constraints : {question.fields.constraints}</p>}
                         {question.fields && <p> Points : {question.fields.points}</p>}
-                        <p>loremaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaloremaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaloremaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                        {/* <p>loremaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaloremaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaloremaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p> */}
                         
                             <hr></hr>
                             
                         {/* test cases */}
-                        {testcases.length==0 && <p style={{color:"red"}}> No testcases for this question click <a href="#"> here </a> to contribute</p>}
+                        {testcases.length==0 && <p style={{color:"blue"}}> No testcases for this question click <a href="#"> here </a> to contribute</p>}
                         {testcases.map((tc,ind)=>
                         <div>
                             <code>
@@ -108,7 +109,8 @@ export function DetailedQuestion(){
                          <Editor question ={question} setoutput ={setoutput}
                           testcases={testcases}
                           setcombined_result ={setcombined_result}
-                           output_div={output_div} />
+                           output_div={output_div} settoShow={settoShow}
+                           setpr_output ={setpr_output}/>
                     </div>
                 </div>
                 
@@ -137,7 +139,7 @@ export function DetailedQuestion(){
             <th> Result  </th>
         </thead>
         <tbody>
-        {combined_result.map(res=>DisplayResult(res))}
+        {pr_output.length >=1 ?show_submit_result(pr_output): combined_result.map(res=>DisplayResult(res))}
         </tbody>
     </table>
 </div>
@@ -152,3 +154,27 @@ return <p  className={level+"D"}>
 {level}
 </p>
 }
+const show_submit_output = (item,index) =>{
+     
+    return <tr>
+        <td>{index+1}</td>
+        <td>{item.status}</td>
+    </tr>
+
+}
+const show_submit_result=(pr_output) =>{
+return <>
+   <table border ="1px solid black">
+       <thead>
+           <th>Test Case</th>
+           <th>Status</th>
+       </thead>
+       <tbody>
+           {pr_output.map((item,index)=>show_submit_output(item,index))}
+       </tbody>
+      
+   </table>
+</>
+
+}
+

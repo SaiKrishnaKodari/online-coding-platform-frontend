@@ -35,6 +35,7 @@
 .code_editor{
     /* background-color: beige; */
     min-height: 00px;
+    border: none;
     /* overflow-y: scroll; */
     /* overflow-x: scroll; */
 }

@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import "./Navbar.css"
-
+import logo from './logo.svg'
 export default function NavBar() {
+    
     return (
 
         <header class="header-container">
             <div class="header-content">
                 <div class="header-brand">
                     <div class="hamburger-btn"></div>
-                        <a href="https://localhost:3000"><img draggable="false" class="brand" src={"/static/12.png"} alt="docode"/></a>
+                        <a href="https://localhost:3000"><img src={logo} draggable="false" class="brand"/></a>
                     </div>
                 <div class="header-main">
                     <div class="header-main-actions-container">
@@ -63,21 +64,21 @@ export default function NavBar() {
                     </div>
                     <div class="business-quick-actions">
                         <div class="other-services">
-                            <a href="#" target="_blank">Xstream</a>
-                            <a href="#" target="_blank">Airtel Payments Bank</a> 
-                            <a href="#" target="_blank">Wynk</a>
+                            <a href="#" target="_blank">Contact</a>
+                            <a href="#" target="_blank">Register</a> 
+                            <a href="#" target="_blank">Logout</a>
                         </div>
                         <span class="divider"></span>
-                        <a class="active">Personal</a>
+                        {/* <a class="active">Personal</a>
                         <a href="#" target="_blank">Career</a>
                         <a href="#" target="_blank">Business</a>
-                        <a href="#" target="_blank">Investor</a>
+                        <a href="#" target="_blank">Investor</a> */}
                     </div>
                 </div>
                 <div class="header-right">
-                    <a class="actions-heading" href="#"><img draggable="false" src="https://assets.airtel.in/static-assets/new-home/img/get-app.svg?v=1613632483347" alt="get app" /> Get App</a>
-                    <a class="actions-heading" href="#"><img draggable="false" src="https://assets.airtel.in/static-assets/new-home/img/airtel-store.svg?v=1613632483347" alt="airtel store" /> Airtel Store </a>
-                    <a class="actions-heading" href="#"><img draggable="false" src="https://assets.airtel.in/static-assets/new-home/img/login-user.svg?v=1613632483347" alt="login" /> Login</a>
+                    <a class="actions-heading" href="#"><img draggable="false" src="https://assets.airtel.in/static-assets/new-home/img/get-app.svg?v=1613632483347" alt="get app" />contact</a>
+                    <a class="actions-heading" href="#"><img draggable="false" src="https://assets.airtel.in/static-assets/new-home/img/airtel-store.svg?v=1613632483347" alt="airtel store" /> Logout</a>
+                    <a class="actions-heading" href="#"><img draggable="false" src="https://assets.airtel.in/static-assets/new-home/img/login-user.svg?v=1613632483347" alt="login" /> Account</a>
                 </div>
             </div>
         </header>

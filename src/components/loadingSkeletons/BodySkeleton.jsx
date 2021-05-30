@@ -8,10 +8,10 @@ export default function BodySkeleton() {
 const SkeletonWrapper=()=>{
     return <div className="row " style={{paddingTop:"50px"}}  >
     <div className="col-10 col-lg-10">
-        <Skeleton  height={20} style={styleOfTitle} ></Skeleton>
+        <Skeleton  height={25} style={styleOfTitle} ></Skeleton>
     </div>
     <div className={"col-2 col-lg-2"}>
-        <Skeleton height={20} style={styleOfDifficultyLevelBox}  ></Skeleton>
+        <Skeleton height={25} style={styleOfDifficultyLevelBox}  ></Skeleton>
     </div>
 </div>
 
