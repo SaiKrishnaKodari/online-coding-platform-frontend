@@ -1,0 +1,7 @@
+.question-title:hover{
+    background-color: #aeb6ae;
+    text-decoration:none;
+}
+a.active{
+    background-color: #aeb6ae;
+}

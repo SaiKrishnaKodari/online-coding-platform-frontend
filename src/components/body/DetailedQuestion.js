@@ -5,6 +5,7 @@ import { DifficultyLevel } from "./DifficultyLevelBox";
 import { orange, red } from '@material-ui/core/colors';
 import  Editor  from "./editor/Editor";
 import DisplayResult from "../displayResult/DisplayResult";
+import DisplayResults from "../displayResult/DisplayResults"
 
 function handleClick(e){
 
@@ -18,6 +19,8 @@ export function DetailedQuestion(){
     const [combined_result, setcombined_result] = useState([])
     const [toShow, settoShow] = useState("input")
     const [pr_output , setpr_output]=useState([])
+    const [solution,setsolution]=useState([])
+    const [selected_tc,setselected_tc]=useState({})
     document.title="doCode | solve problem" 
     
     const handleShownInputOutputButtonClick = (name)=>{
@@ -97,7 +100,7 @@ export function DetailedQuestion(){
                         {testcases.map((tc,ind)=>
                         <div>
                             <code>
-                            <h4>Sample testcase {ind+1}</h4>
+                            <h5>Sample testcase {ind+1}</h5>
                             <p>Input: {tc.fields.input}</p>
                             <p>Output : {tc.fields.output}</p>
                             <hr/>
@@ -109,7 +112,7 @@ export function DetailedQuestion(){
                          <Editor question ={question} setoutput ={setoutput}
                           testcases={testcases}
                           setcombined_result ={setcombined_result}
-                           output_div={output_div} settoShow={settoShow}
+                           output_div={output_div} settoShow={settoShow} 
                            setpr_output ={setpr_output}/>
                     </div>
                 </div>
@@ -123,15 +126,16 @@ export function DetailedQuestion(){
 </div>
 
 </div>
+
 <div className="row">
-<div className ={toShow!="input"?"d-none":""+ "input_box col-12 col-lg-5"}> 
+    <div className ={toShow!="input"?"d-none":""+ "input_box col-12 col-lg-7"}> 
     type input here
-</div>
-<div  id="output_box" className ={ toShow!="output"?"d-none":""+ "output_box  col-12 col-lg-7"}>
+    </div>
+    <div  id="output_box" className ={ toShow!="output"?"d-none":""+ "output_box  col-12 col-lg-7"}>
     {/* {output_div.innerHTML=""} */}
     
     {combined_result.length<=0?"Output will be shown here":""}
-    <table  border="1px">
+    {/* <table  border="1px">
         <thead className={combined_result.length<=0? "d-none":""}>
             <th> sample Input </th>
             <th> Expected output  </th>
@@ -141,12 +145,18 @@ export function DetailedQuestion(){
         <tbody>
         {pr_output.length >=1 ?show_submit_result(pr_output): combined_result.map(res=>DisplayResult(res))}
         </tbody>
-    </table>
-</div>
+    </table> */}
+    <div class='row'>
+    <div className='col-12 col-lg-5'>
+        {pr_output.length >=1 ?show_submit_result(pr_output): combined_result.map((res,ind,)=>DisplayResults(res,ind,setselected_tc))}</div>
+    <div className="solutions col-12 col-lg-5" id='solution_div'> Click On TestCase For Detailed Description {selected_tc.input}</div>
+    </div>
+    </div>
 </div>
 
 </div>
 </div>
+
 )
 }
 const showDifficultyLevel=(level)=>{

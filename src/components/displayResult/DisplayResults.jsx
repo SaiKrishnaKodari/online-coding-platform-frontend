@@ -1,8 +1,14 @@
 import React from 'react'
+import { domain } from "../../Shared";
+import "./displaystyle.css"
 
-export default function DisplayResult(res){
-    // console.log("In display result ",res)
+var url =`${domain}api/problem/title/`
+function handleClick(res,setselected_tc) {
+    console.log(res)
+    setselected_tc(res)
 
+  }
+export default function DisplayResults(res,ind,setselected_tc){
     if(res.actual_output.message =="ArgumentMissingError: source is needed!"){
         return  <>
         <tr>
@@ -40,16 +46,14 @@ export default function DisplayResult(res){
         
     }
     return <>
-    <tr>
-        <td> {res.input}</td>
-        <td> {res.expected_output}</td>
-        <td> {res.actual_output.run_status.output}</td>
-        <td> {verdict(res.expected_output,res.actual_output.run_status.output)}</td>
-    </tr>
+        <ul>
+           <li onClick={handleClick(res,setselected_tc)} className ="list-group-item question-title">Test Case{ind+1}</li>
+        </ul>
     </> 
+
 }
 
- function verdict(a,b){
+function verdict(a,b){
     if (a.trim()==b.trim()){
         return <p  className="PASSED">PASSED</p>
     }

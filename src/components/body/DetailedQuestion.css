@@ -61,3 +61,7 @@
     /* background-color: royalblue; */
 }
 
+.question-title:hover{
+    background-color: #F7F7F9;
+    text-decoration:none;
+}
