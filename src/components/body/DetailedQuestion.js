@@ -5,7 +5,8 @@ import { DifficultyLevel } from "./DifficultyLevelBox";
 import { orange, red } from '@material-ui/core/colors';
 import  Editor  from "./editor/Editor";
 import DisplayResult from "../displayResult/DisplayResult";
-import DisplayResults from "../displayResult/DisplayResults"
+import DisplayResults from "../displayResult/DisplayResults";
+import Login from "../login/login";
 
 function handleClick(e){
 
@@ -61,8 +62,10 @@ export function DetailedQuestion(){
     return (
         
         <div>
+            {/* <Login/> */}
             <div className ="DetailedQuestion">
                 <div className="row row-cols-2">
+                    
                     <div className ="question_description col-12 col-lg-5">
                     <div className="question_title  row">
                             <div className="row col-10" style={{marginLeft:"5px"}}>
@@ -148,8 +151,11 @@ export function DetailedQuestion(){
     </table> */}
     <div class='row'>
     <div className='col-12 col-lg-5'>
-        {pr_output.length >=1 ?show_submit_result(pr_output): combined_result.map((res,ind,)=>DisplayResults(res,ind,setselected_tc))}</div>
-    <div className="solutions col-12 col-lg-5" id='solution_div'> Click On TestCase For Detailed Description {selected_tc.input}</div>
+        {pr_output.length >=1 ?show_submit_result(pr_output): combined_result.map((res,ind)=>DisplayResults(res,ind))}</div>
+    <div className="solutions col-12 col-lg-5" id='solution_div'> Click On TestCase For Detailed Description
+    <div id="tc_ip">Test Case INPUT :</div>
+    <div id='tc_op'>Test Case Expected OUTPUT :</div>
+    <div id="tc_acop">Test Case Actal OUTPUT :</div></div>
     </div>
     </div>
 </div>

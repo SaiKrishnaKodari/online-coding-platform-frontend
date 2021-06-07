@@ -5,7 +5,6 @@ import "./displaystyle.css"
 var url =`${domain}api/problem/title/`
 function handleClick(res,setselected_tc) {
     console.log(res)
-    setselected_tc(res)
 
   }
 export default function DisplayResults(res,ind,setselected_tc){
@@ -47,7 +46,7 @@ export default function DisplayResults(res,ind,setselected_tc){
     }
     return <>
         <ul>
-           <li onClick={handleClick(res,setselected_tc)} className ="list-group-item question-title">Test Case{ind+1}</li>
+           <li onClick={this.handleClick(res,setselected_tc)} className ="list-group-item question-title">Test Case{ind+1}</li>
         </ul>
     </> 
 

@@ -3,6 +3,7 @@ import {domain} from "../../Shared"
 import {QuestionInHomePage  } from "./QuestionInHomePage";
 import "./Body.css"
 import BodySkeleton from "../loadingSkeletons/BodySkeleton"
+
 const url =domain+'api/questions'
 
 
