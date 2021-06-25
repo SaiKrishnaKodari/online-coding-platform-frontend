@@ -6,7 +6,6 @@ import { orange, red } from '@material-ui/core/colors';
 import  Editor  from "./editor/Editor";
 import DisplayResult from "../displayResult/DisplayResult";
 import DisplayResults from "../displayResult/DisplayResults";
-import Login from "../login/login";
 
 function handleClick(e){
 
@@ -80,11 +79,11 @@ export function DetailedQuestion(){
                             </div>
                             </div>
                             <div className='row row-cols-2'>
-                            <div className="row col-10"></div>
+                            <div className="row col-9"></div>
                             <div className='row col-2'></div>
                             <div className="row col">
                                 <div className='row col-3'>
-                                <a href={url} onClick={e=>handleClick(e)}>Author</a></div>
+                                <a href='#' onClick={e=>handleClick(e)}>Discussion</a></div>
                             
                             </div>
                             </div>
@@ -138,7 +137,7 @@ export function DetailedQuestion(){
     {/* {output_div.innerHTML=""} */}
     
     {combined_result.length<=0?"Output will be shown here":""}
-    {/* <table  border="1px">
+    <table  border="1px">
         <thead className={combined_result.length<=0? "d-none":""}>
             <th> sample Input </th>
             <th> Expected output  </th>
@@ -148,15 +147,11 @@ export function DetailedQuestion(){
         <tbody>
         {pr_output.length >=1 ?show_submit_result(pr_output): combined_result.map(res=>DisplayResult(res))}
         </tbody>
-    </table> */}
-    <div class='row'>
-    <div className='col-12 col-lg-5'>
-        {pr_output.length >=1 ?show_submit_result(pr_output): combined_result.map((res,ind)=>DisplayResults(res,ind))}</div>
-    <div className="solutions col-12 col-lg-5" id='solution_div'> Click On TestCase For Detailed Description
-    <div id="tc_ip">Test Case INPUT :</div>
-    <div id='tc_op'>Test Case Expected OUTPUT :</div>
-    <div id="tc_acop">Test Case Actal OUTPUT :</div></div>
-    </div>
+    </table>
+   
+        {/* {pr_output.length >=1 ?show_submit_result(pr_output): combined_result.map((res,ind)=>DisplayResult(res,ind))} */}
+   
+    
     </div>
 </div>
 

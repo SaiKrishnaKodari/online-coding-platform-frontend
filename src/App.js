@@ -7,6 +7,9 @@ import {
   Route,
 } from "react-router-dom";
 import NavBar from "./components/NavBar/Navbar";
+import  Signup  from "./components/authentication/signup/Signup";
+import Login from './components/authentication/login/login'
+
 
 import { DetailedQuestion } from "./components/body/DetailedQuestion";
 function App() {
@@ -15,13 +18,21 @@ function App() {
       <div className="App">
       <NavBar/>
         <Switch>
-          <Route exact path="/">
+        <Route exact path="/">
             <Body />
-        
-            <ContributeProblem />
           </Route>
           <Route exact path="/problem/:id">
             <DetailedQuestion />
+          </Route>
+          <Route exact path="/contribute-question">
+            <ContributeProblem />
+          </Route>
+          
+          <Route exact path ="/login">
+            <Login />
+          </Route>
+          <Route exact path ="/signup">
+            <Signup />
           </Route>
           
          
